@@ -278,6 +278,44 @@ public class PopulateTable {
 
     return courseList; // Return the populated list
 }   
+        public static void populateCourseTable(JTable table, String StudentID) { 
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        // SQL query to fetch relevant course data for a specific student
+        String query = "SELECT coursecode, coursename, spr, statusspr FROM student_to_course WHERE studentID = ?"; 
+        connection = DatabaseConnection.getInstance().getConnection();
+        ps = connection.prepareStatement(query);
+        ps.setString(1, StudentID); // Set the studentID parameter
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Clear existing rows in the table
+
+        rs = ps.executeQuery();
+
+        // Populate the table with the results
+        while (rs.next()) {
+            String courseCode = rs.getString("coursecode");
+            String courseName = rs.getString("coursename");
+            String grade = rs.getString("spr"); // Assuming spr is a grade
+            String status = rs.getString("statusspr");
+            model.addRow(new Object[]{courseCode, courseName, grade, status});
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing connection: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
         public static List<ModelQuiz> populateQuizNameToQuizBox(String courseCode) {
     List<ModelQuiz> quizList = new ArrayList<>();
 

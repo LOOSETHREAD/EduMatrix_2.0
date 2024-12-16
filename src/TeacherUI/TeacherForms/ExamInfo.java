@@ -8,6 +8,7 @@ import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.PopulateStudentInfoToExamTable;
 import Data.Models.ModelExam;
 import static TeacherUI.TeacherForms.QuizInfo.quizTable;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +21,7 @@ public class ExamInfo extends javax.swing.JPanel {
     private DefaultTableModel examDataTableModel;
     public ExamInfo() {
         initComponents();
+        statusField.setVisible(false);
         examNo.setVisible(false);
         courseCode.setVisible(false);
         courseName.setVisible(false);
@@ -52,6 +54,23 @@ public class ExamInfo extends javax.swing.JPanel {
     PopulateStudentInfoToExamTable(ExamInfo.examTable,examName, courseCodeToUpdate);
     TextFieldEmpty();
 }
+    private boolean validateFields() {
+    if (examResult.getText().trim().isEmpty() || examTotal.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter values for both Exam Result and Exam Total.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    try {
+        // Try parsing values to ensure they are numbers
+        Double.parseDouble(examResult.getText().trim());
+        Double.parseDouble(examTotal.getText().trim());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numbers in the fields.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    return true;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,8 +87,7 @@ public class ExamInfo extends javax.swing.JPanel {
         examResult = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         examTotal = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        statusField = new javax.swing.JTextField();
+        statusField = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         courseCode = new javax.swing.JLabel();
         courseName = new javax.swing.JLabel();
@@ -121,8 +139,6 @@ public class ExamInfo extends javax.swing.JPanel {
 
         jLabel2.setText("Exam Total");
 
-        jLabel3.setText("Status");
-
         jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,10 +177,9 @@ public class ExamInfo extends javax.swing.JPanel {
                         .addComponent(studentName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addGap(168, 168, 168)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(examNo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,14 +203,13 @@ public class ExamInfo extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(examResult, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                            .addComponent(examTotal)
-                            .addComponent(statusField))
+                            .addComponent(examTotal))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
@@ -221,7 +235,50 @@ public class ExamInfo extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (courseCode.getText().trim().isEmpty() || 
+        courseName.getText().trim().isEmpty() || 
+        studentId.getText().trim().isEmpty() || 
+        studentName.getText().trim().isEmpty() || 
+        examNo.getText().trim().isEmpty()) {
+
+        // Display a message if any fields are empty
+        JOptionPane.showMessageDialog(this, "Please select a student's data", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit the method without proceeding further
+    }
+         if (validateFields()) {
+        // Proceed with the rest of the logic
+         try {
+        // Ensure fields are not empty
+        if (examResult.getText().trim().isEmpty() || examTotal.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter values for both Exam Result and Exam Total.", 
+                                          "Input Error", JOptionPane.ERROR_MESSAGE);
+            return; // Don't proceed if fields are empty
+        }
+        
+        // Parse the input from examResult and examTotal JTextFields
+        double examResultValue = Double.parseDouble(examResult.getText().trim());
+        double examTotalValue = Double.parseDouble(examTotal.getText().trim());
+
+        // Check if examResult is 75% or more of examTotal
+        double percentage = (examResultValue / examTotalValue) * 100;
+
+        // Determine pass or fail
+        if (percentage >= 75) {
+            statusField.setText("Passed");
+        } else {
+            statusField.setText("Failed");
+        }
+
+    } catch (NumberFormatException e) {
+        // Handle invalid number input
+        JOptionPane.showMessageDialog(this, "Please enter valid numbers in the fields.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit method if the input is invalid
+    }
         updateBtn();
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -236,9 +293,8 @@ public class ExamInfo extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField statusField;
+    private javax.swing.JLabel statusField;
     private javax.swing.JLabel studentId;
     private javax.swing.JLabel studentName;
     // End of variables declaration//GEN-END:variables

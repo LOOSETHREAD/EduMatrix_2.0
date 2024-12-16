@@ -198,7 +198,7 @@ public class FacultyLogin extends javax.swing.JPanel {
 char[] password = txtPass.getPassword();
 
 // Create a faculty user object for login
-ModelFacultyUser loginUser = new ModelFacultyUser("", "", username, password, "");
+ModelFacultyUser loginUser = new ModelFacultyUser("", username, password, "");
 UserController controller = new UserController();
 
 try {

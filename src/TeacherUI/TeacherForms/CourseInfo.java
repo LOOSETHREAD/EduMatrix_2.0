@@ -7,6 +7,7 @@ package TeacherUI.TeacherForms;
 import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.populateStudentToCourseTable;
 import Data.Models.ModelStudentToCourse;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +20,7 @@ public class CourseInfo extends javax.swing.JPanel {
     private DefaultTableModel studentDataTableModel;
     public CourseInfo() {
         initComponents();
+        statusField.setVisible(false);
         courseCode.setVisible(false);
         courseName.setVisible(false);;
         fullName.setVisible(false);
@@ -62,9 +64,8 @@ public class CourseInfo extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         studentDataTable = new javax.swing.JTable();
         gradeField = new javax.swing.JTextField();
-        statusField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        statusField = new javax.swing.JLabel();
         courseCode = new javax.swing.JLabel();
         courseName = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -115,8 +116,6 @@ public class CourseInfo extends javax.swing.JPanel {
 
         jLabel1.setText("Add Grade");
 
-        jLabel2.setText("Status");
-
         jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,16 +139,13 @@ public class CourseInfo extends javax.swing.JPanel {
                         .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(fullName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(studentID, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idcourselist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fullName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(studentID, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idcourselist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
@@ -175,14 +171,15 @@ public class CourseInfo extends javax.swing.JPanel {
                                 .addGap(14, 14, 14)
                                 .addComponent(studstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(idcourselist, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 17, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
+                    .addComponent(statusField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(gradeField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(50, 50, 50))
         );
@@ -190,6 +187,33 @@ public class CourseInfo extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (courseCode.getText().trim().isEmpty() || 
+        courseName.getText().trim().isEmpty() || 
+        fullName.getText().trim().isEmpty() || 
+        studentID.getText().trim().isEmpty()) {
+        
+        // If any of these fields are empty, show a message and exit the method
+        JOptionPane.showMessageDialog(this, "Please select a student's data", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit the method if any field is empty
+    }
+        double grade = 0;
+    try {
+        // Try to parse the value from the quizResult field
+        grade = Double.parseDouble(gradeField.getText().trim());
+    } catch (NumberFormatException e) {
+        // Handle invalid number input
+        JOptionPane.showMessageDialog(this, "Please enter a valid grade.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit method if the input is invalid
+    }
+
+    // Check if the grade is below 75 and set the statusField
+    if (grade < 75) {
+        statusField.setText("Failed");
+    } else {
+        statusField.setText("Passed");
+    }
         updateBtn();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -216,9 +240,8 @@ public class CourseInfo extends javax.swing.JPanel {
     private javax.swing.JLabel idcourselist;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField statusField;
+    private javax.swing.JLabel statusField;
     public static javax.swing.JTable studentDataTable;
     private javax.swing.JLabel studentID;
     private javax.swing.JLabel studstatus;

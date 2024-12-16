@@ -7,6 +7,7 @@ package TeacherUI.TeacherForms;
 import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.PopulateStudentInfoToQuizTable;
 import Data.Models.ModelQuiz;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +20,7 @@ public class QuizInfo extends javax.swing.JPanel {
     private DefaultTableModel quizDataTableModel;
     public QuizInfo() {
         initComponents();
+        statusField.setVisible(false);
         quizNo.setVisible(false);
         courseCode.setVisible(false);
         courseName.setVisible(false);
@@ -51,7 +53,23 @@ public class QuizInfo extends javax.swing.JPanel {
         statusField.setText("");
         id.setText("");
     }
-
+    private boolean validateFields() {
+    if (quizResult.getText().trim().isEmpty() || quizTotal.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter values for both Quiz Result and Quiz Total.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    try {
+        // Try parsing values to ensure they are numbers
+        Double.parseDouble(quizResult.getText().trim());
+        Double.parseDouble(quizTotal.getText().trim());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numbers in the fields.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    return true;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,7 +84,7 @@ public class QuizInfo extends javax.swing.JPanel {
         quizNo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        statusField = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         courseCode = new javax.swing.JLabel();
         courseName = new javax.swing.JLabel();
@@ -75,7 +93,6 @@ public class QuizInfo extends javax.swing.JPanel {
         id = new javax.swing.JLabel();
         quizResult = new javax.swing.JTextField();
         quizTotal = new javax.swing.JTextField();
-        statusField = new javax.swing.JTextField();
 
         quizTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,8 +137,6 @@ public class QuizInfo extends javax.swing.JPanel {
 
         jLabel3.setText("Quiz Total");
 
-        jLabel4.setText("Status");
-
         jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,10 +178,9 @@ public class QuizInfo extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
+                                .addGap(132, 132, 132)
                                 .addComponent(jButton1))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -183,16 +197,16 @@ public class QuizInfo extends javax.swing.JPanel {
                             .addComponent(studentId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(studentName, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)))
                     .addComponent(quizNo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3))
+                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(quizTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(quizResult, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -215,7 +229,49 @@ public class QuizInfo extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (courseCode.getText().trim().isEmpty() || 
+        courseName.getText().trim().isEmpty() || 
+        studentId.getText().trim().isEmpty() || 
+        studentName.getText().trim().isEmpty() || 
+        quizNo.getText().trim().isEmpty()) {
+
+        // Display a message if any fields are empty
+        JOptionPane.showMessageDialog(this, "Please select a student's data", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit the method without proceeding further
+    }
+        if (validateFields()) {
+        // Proceed with the rest of the logic
+         try {
+        // Ensure fields are not empty
+        if (quizResult.getText().trim().isEmpty() || quizTotal.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter values for both Quiz Result and Quiz Total.", 
+                                          "Input Error", JOptionPane.ERROR_MESSAGE);
+            return; // Don't proceed if fields are empty
+        }
+        
+        // Parse the input from examResult and examTotal JTextFields
+        double quizResultValue = Double.parseDouble(quizResult.getText().trim());
+        double quizTotalValue = Double.parseDouble(quizTotal.getText().trim());
+
+        // Check if examResult is 75% or more of examTotal
+        double percentage = (quizResultValue / quizTotalValue) * 100;
+
+        // Determine pass or fail
+        if (percentage >= 75) {
+            statusField.setText("Passed");
+        } else {
+            statusField.setText("Failed");
+        }
+
+    } catch (NumberFormatException e) {
+        // Handle invalid number input
+        JOptionPane.showMessageDialog(this, "Please enter valid numbers in the fields.", 
+                                      "Input Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit method if the input is invalid
+    }
         updateBtn();
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -226,13 +282,12 @@ public class QuizInfo extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel quizNo;
     private javax.swing.JTextField quizResult;
     public static javax.swing.JTable quizTable;
     private javax.swing.JTextField quizTotal;
-    private javax.swing.JTextField statusField;
+    private javax.swing.JLabel statusField;
     private javax.swing.JLabel studentId;
     private javax.swing.JLabel studentName;
     // End of variables declaration//GEN-END:variables

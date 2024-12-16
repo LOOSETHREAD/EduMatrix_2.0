@@ -55,7 +55,7 @@ public class StudentRegister extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         fullName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        programBox = new javax.swing.JComboBox<>();
+        programField = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(41, 78, 89));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,7 +63,7 @@ public class StudentRegister extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,7 +90,7 @@ public class StudentRegister extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Welcome!");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 37, -1, -1));
-        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 240, 32));
+        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 240, 32));
 
         registerBttn.setText("Sign Up");
         registerBttn.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +103,7 @@ public class StudentRegister extends javax.swing.JPanel {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Fullname");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
         fullName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,13 +116,12 @@ public class StudentRegister extends javax.swing.JPanel {
         jLabel6.setText("Program");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
 
-        programBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accounting", "IT", "ComEng" }));
-        programBox.addActionListener(new java.awt.event.ActionListener() {
+        programField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                programBoxActionPerformed(evt);
+                programFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(programBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 240, -1));
+        jPanel1.add(programField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 240, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,7 +144,7 @@ public class StudentRegister extends javax.swing.JPanel {
     private void registerBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBttnActionPerformed
         // TODO add your handling code here:
        String fullname = fullName.getText();
-String program = (String) programBox.getSelectedItem();
+String program = programField.getText();
 String username = txtUser.getText();
 char[] password = txtPass.getPassword();
 
@@ -171,9 +170,9 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_fullNameActionPerformed
 
-    private void programBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programBoxActionPerformed
+    private void programFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_programBoxActionPerformed
+    }//GEN-LAST:event_programFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -186,7 +185,7 @@ try {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> programBox;
+    private javax.swing.JTextField programField;
     private javax.swing.JButton registerBttn;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;

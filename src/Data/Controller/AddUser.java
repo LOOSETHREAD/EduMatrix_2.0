@@ -28,7 +28,7 @@ public class AddUser {
 
         // Determine the SQL statement based on row count
         if (rowCount == 0) {
-            insertSql = "INSERT INTO facultyuser (fullname, program, username, password, role, teacherid) VALUES (?, ?, ?, ?, 'ADMIN', ?)";
+            insertSql = "INSERT INTO facultyuser (fullname, username, password, role, teacherid) VALUES (?, ?, ?, 'ADMIN', ?)";
         } else {
             // If more than 0 rows exist, do not allow additional users
             return false; // Indicate failure due to existing users
@@ -37,10 +37,9 @@ public class AddUser {
         // Execute the INSERT query
         try (PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(insertSql)) {
             p.setString(1, data.getFullname());
-            p.setString(2, data.getProgram());
-            p.setString(3, data.getUserName());
-            p.setString(4, new String(data.getPassword())); // Convert password char[] to String
-            p.setString(5, data.getTeacherid());
+            p.setString(2, data.getUserName());
+            p.setString(3, new String(data.getPassword())); // Convert password char[] to String
+            p.setString(4, data.getTeacherid());
             p.executeUpdate();
         }
 
@@ -63,7 +62,6 @@ public class AddUser {
         if (rs.next()) {
             // Retrieve all required fields from the database
             String fullname = rs.getString("fullname");
-            String program = rs.getString("program"); // Program
             String username = rs.getString("username");
             char[] password = rs.getString("password").toCharArray();
             String teacherid = rs.getString("teacherid");
@@ -76,7 +74,7 @@ public class AddUser {
             }
 
             // Create and return the ModelFacultyUser instance
-            ModelFacultyUser user = new ModelFacultyUser(fullname, program, username, password, teacherid);
+            ModelFacultyUser user = new ModelFacultyUser(fullname, username, password, teacherid);
             user.setRole(role); // Set the role
             return user;
         } else {

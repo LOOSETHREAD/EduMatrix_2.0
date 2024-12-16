@@ -37,16 +37,6 @@ public class ModelFacultyUser {
     /**
      * @return the program
      */
-    public String getProgram() {
-        return program;
-    }
-
-    /**
-     * @param program the program to set
-     */
-    public void setProgram(String program) {
-        this.program = program;
-    }
 
     public UserRole getRole() {
         return role;
@@ -72,9 +62,8 @@ public class ModelFacultyUser {
         this.password = password;
     }
 
-    public ModelFacultyUser(String fullname, String program, String username, char[] password, String teacherid) {
+    public ModelFacultyUser(String fullname, String username, char[] password, String teacherid) {
         this.fullname = fullname;
-        this.program = program;
         this.username = username;
         this.password = password;
         this.teacherid = teacherid;
@@ -84,7 +73,6 @@ public class ModelFacultyUser {
         ADMIN
     }
     private String fullname;
-    private String program;
     private String username;
     private char[] password;
     private UserRole role;
