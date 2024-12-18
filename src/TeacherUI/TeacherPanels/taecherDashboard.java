@@ -46,6 +46,9 @@ public class taecherDashboard extends javax.swing.JPanel {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         panelItem1 = new Swing.PanelItem();
+        jLabel1 = new javax.swing.JLabel();
+
+        panelItem1.add(jLabel1);
 
         jScrollPane2.setViewportView(panelItem1);
 
@@ -65,6 +68,7 @@ public class taecherDashboard extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     public Swing.PanelItem panelItem1;
     // End of variables declaration//GEN-END:variables

@@ -94,6 +94,8 @@ public class QuizInfo extends javax.swing.JPanel {
         quizResult = new javax.swing.JTextField();
         quizTotal = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         quizTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
