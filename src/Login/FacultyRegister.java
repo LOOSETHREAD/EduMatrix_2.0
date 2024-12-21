@@ -55,10 +55,14 @@ public class FacultyRegister extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
-        registerBttn = new javax.swing.JButton();
         txtPass = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         fullName = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        panelBorder1 = new Swing.PanelBorder();
+        registerBttn = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         jPanel1.setBackground(new java.awt.Color(41, 78, 89));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,7 +86,7 @@ public class FacultyRegister extends javax.swing.JPanel {
                 cmdBackLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdBackLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 96, 30));
+        jPanel1.add(cmdBackLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 96, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,16 +96,19 @@ public class FacultyRegister extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 45)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Welcome!");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 37, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
         jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 240, 32));
 
-        registerBttn.setText("Sign Up");
-        registerBttn.addActionListener(new java.awt.event.ActionListener() {
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerBttnActionPerformed(evt);
+                txtPassActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 88, 29));
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 240, 30));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,6 +121,32 @@ public class FacultyRegister extends javax.swing.JPanel {
             }
         });
         jPanel1.add(fullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 240, 30));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, -1));
+
+        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+
+        registerBttn.setText("Sign Up");
+        registerBttn.setContentAreaFilled(false);
+        registerBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerBttnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(registerBttn);
+        registerBttn.setBounds(0, 0, 100, 29);
+
+        jPanel1.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 100, 30));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 103, 60, 20));
+
+        jCheckBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setText("Show Password");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -131,13 +164,20 @@ public class FacultyRegister extends javax.swing.JPanel {
 
     private void registerBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBttnActionPerformed
         // TODO add your handling code here:
-       String fullname = fullName.getText();
-String username = txtUser.getText();
+      String fullname = fullName.getText().trim();
+String username = txtUser.getText().trim();
 char[] password = txtPass.getPassword();
+
 UserController controller = new UserController();
 String teacherId = controller.generateTeacherId();
 
 try {
+    // Validate input fields
+    if (fullname.isEmpty() || username.isEmpty() || password.length == 0) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled before registration.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+        return; // Exit if any field is empty
+    }
+
     // Check if an ADMIN already exists in the database
     boolean isAdminExists = controller.isAdminExists();
 
@@ -181,16 +221,82 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdBackLoginActionPerformed
 
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtPassActionPerformed
+
+    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) { 
+        String fullname = fullName.getText();
+String username = txtUser.getText();
+char[] password = txtPass.getPassword();
+UserController controller = new UserController();
+String teacherId = controller.generateTeacherId();
+
+try {
+    if (fullname.isEmpty() || username.isEmpty() || password.length == 0) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled before registration.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+        return; // Exit if any field is empty
+    }
+    // Check if an ADMIN already exists in the database
+    boolean isAdminExists = controller.isAdminExists();
+
+    if (isAdminExists) {
+        // Prevent further registrations
+        JOptionPane.showMessageDialog(this, "Registration is closed. Only one ADMIN is allowed in the system.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit without registering the user
+    }
+
+    // If no ADMIN exists, proceed to register the first user as ADMIN
+    String role = "ADMIN"; // Role is fixed to "ADMIN"
+
+    // Create the user object with the collected data
+    ModelFacultyUser user = new ModelFacultyUser(fullname, username, password, teacherId);
+
+    // Attempt to register the user
+    boolean isRegistered = controller.registerFacultyUser(user);
+
+    if (isRegistered) {
+        // Inform the user about successful registration
+        JOptionPane.showMessageDialog(this, "User Added Successfully as ADMIN with ID: " + teacherId);
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to register user. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+} catch (ClassNotFoundException ex) {
+    Logger.getLogger(FacultyRegister.class.getName()).log(Level.SEVERE, null, ex);
+    JOptionPane.showMessageDialog(this, "Failed to add user. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+} catch (Exception ex) {
+    Logger.getLogger(FacultyRegister.class.getName()).log(Level.SEVERE, "Unexpected error", ex);
+    JOptionPane.showMessageDialog(this, "An unexpected error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+}
+        }
+    }//GEN-LAST:event_txtPassKeyPressed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()) {
+        txtPass.setEchoChar((char) 0); // Reveal password
+    } else {
+        txtPass.setEchoChar('\u2022'); // Mask password with black dots
+    }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdBackLogin;
     private javax.swing.JTextField fullName;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator3;
+    private Swing.PanelBorder panelBorder1;
     private javax.swing.JButton registerBttn;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;

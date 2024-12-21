@@ -83,17 +83,10 @@ public class AddData {
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "Failed to delete data.");
-            
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        p.executeUpdate();
         
+    } catch (SQLException e) {
+       
     }finally{
         try {
             if (p !=null) p.close();
@@ -111,16 +104,9 @@ public class AddData {
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "Failed to delete data.");
-            
-        }
+        p.executeUpdate();
+        
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         
     }finally{
         try {
@@ -139,16 +125,9 @@ public class AddData {
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "No matching data from database.");
-            
-        }
+        p.executeUpdate();
+        
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         
     }finally{
         try {
@@ -167,16 +146,9 @@ public class AddData {
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "No matching data from database.");
-            
-        }
+        p.executeUpdate();
+       
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         
     }finally{
         try {
@@ -195,16 +167,9 @@ public class AddData {
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "No matching data from database.");
-            
-        }
+        p.executeUpdate();
+        
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         
     }finally{
         try {
@@ -223,17 +188,10 @@ public class AddData {
         p = DatabaseConnection.getInstance().getConnection().prepareStatement(sql);
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "No matching data from database.");
-            
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        p.executeUpdate();
         
+    } catch (SQLException e) {
+       
     }finally{
         try {
             if (p !=null) p.close();
@@ -338,14 +296,8 @@ public class AddData {
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
         p.setString(3, deleteData.getQuizName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data Deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "Failed to delete data.");
-            
-        }
+        p.executeUpdate();
+        
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         
@@ -429,16 +381,9 @@ public class AddData {
         p.setString(1, deleteData.getCourseCode());
         p.setString(2, deleteData.getCourseName());
         p.setString(3, deleteData.getExamName());
-        int rowsAffected = p.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            JOptionPane.showMessageDialog(null, "Data Deleted Succesfully");
-        }else{
-            JOptionPane.showMessageDialog(null, "Failed to delete data.");
-            
-        }
+        p.executeUpdate();
+        
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error Deleting data:" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         
     }finally{
         try {

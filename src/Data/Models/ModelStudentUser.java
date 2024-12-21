@@ -93,11 +93,15 @@ public class ModelStudentUser {
         this.studentid = studentid;
     }
 
-    public ModelStudentUser(String username, char[] password, String fullname,String studentid) {
+    public ModelStudentUser(String username, char[] password, String fullname,String studentid, String program) {
+        this.program = program;
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.studentid = studentid;
+    }
+
+    public ModelStudentUser() {
     }
     
     private String fullname;

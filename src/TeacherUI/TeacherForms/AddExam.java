@@ -79,15 +79,18 @@ public class AddExam extends javax.swing.JPanel {
         courseName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         examName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        pictureBox1 = new Swing.PictureBox();
+        pictureBox2 = new Swing.PictureBox();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 78, 89), 2));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 78, 89), 6));
 
+        courseTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         courseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -118,6 +121,7 @@ public class AddExam extends javax.swing.JPanel {
             courseTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        examTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         examTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -154,27 +158,47 @@ public class AddExam extends javax.swing.JPanel {
 
         jLabel1.setText("Course Code");
 
+        courseCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         jLabel2.setText("Course Name");
+
+        courseName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setText("Exam Name");
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Delete");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        examName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setText("Select a course to add exam : ");
 
         jLabel5.setText("List of course that have exam :");
+
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-add-48 (1).png"))); // NOI18N
+        pictureBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox1MouseClicked(evt);
+            }
+        });
+
+        pictureBox2.setImage(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-remove-48 (1).png"))); // NOI18N
+        pictureBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox2MouseClicked(evt);
+            }
+        });
+
+        jLabel6.setText("Add");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+
+        jLabel7.setText("Delete");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -190,21 +214,23 @@ public class AddExam extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(courseName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(examName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(courseCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(17, 17, 17)
+                            .addComponent(pictureBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(courseCode, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -230,91 +256,20 @@ public class AddExam extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(examName, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(26, 26, 26)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(examName, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                .addComponent(pictureBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String coursecode = courseCode.getText().trim(); // Replace with your JLabel variable name
-         String coursename = courseName.getText().trim();
-         String examNameValue = examName.getText().trim(); // Replace with your JTextField variable name
-
-    // Validate if the quiz name is provided
-    if (examNameValue.isEmpty()) {
-        JOptionPane.showMessageDialog(this, 
-            "Please enter a exam name before proceeding.", 
-            "Input Required", 
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Database connection instance
-    DatabaseConnection dbConnection = DatabaseConnection.getInstance();
-
-    try (Connection conn = dbConnection.getConnection()) {
-        // Query to fetch student_name and studentID
-        String selectSQL = "SELECT student_name, studentID FROM student_to_course WHERE coursecode = ?";
-        
-        // Query to insert into the quizes table
-        String insertSQL = "INSERT INTO exams (coursecode, coursename, studentid, fullname, examnumber, examresult, examtotal, status) " +
-                           "VALUES (?, ?, ?, ?, ?, '', '', '')";
-
-        // Prepare the SELECT statement
-        try (PreparedStatement selectStmt = conn.prepareStatement(selectSQL)) {
-            selectStmt.setString(1, coursecode);
-
-            try (ResultSet rs = selectStmt.executeQuery()) {
-                // Check if data exists
-                if (!rs.isBeforeFirst()) {
-                    JOptionPane.showMessageDialog(this, 
-                        "No students found for course code: " + coursecode, 
-                        "No Data", 
-                        JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-
-                // Prepare the INSERT statement
-                try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
-                    while (rs.next()) {
-                        String studentName = rs.getString("student_name");
-                        String studentID = rs.getString("studentID");
-
-                        // Set parameters for INSERT
-                        insertStmt.setString(1, coursecode);
-                        insertStmt.setString(2, coursename); // Replace with actual course name or fetch it dynamically
-                        insertStmt.setString(3, studentID);
-                        insertStmt.setString(4, studentName);
-                        insertStmt.setString(5, examNameValue); // Use quiz name from JTextField
-
-                        // Execute the insert
-                        insertStmt.executeUpdate();
-                    }
-                    
-                    JOptionPane.showMessageDialog(this, 
-                        "Data successfully populated into the 'exams' table.", 
-                        "Success", 
-                        JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, 
-            "Database error: " + e.getMessage(), 
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
-    addData();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void courseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseTableMouseClicked
         // TODO add your handling code here:
@@ -331,7 +286,185 @@ public class AddExam extends javax.swing.JPanel {
         examName.setText(examTableModel.getValueAt(selectIndex, 2).toString());
     }//GEN-LAST:event_examTableMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        String coursecode = courseCode.getText().trim(); // Replace with your JLabel variable name
+String coursename = courseName.getText().trim();
+String examNameValue = examName.getText().trim(); // Replace with your JTextField variable name
+
+// Validate if the exam name is provided
+if (examNameValue.isEmpty()) {
+    JOptionPane.showMessageDialog(this,
+        "Please enter an exam name before proceeding.",
+        "Input Required",
+        JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
+// Database connection instance
+DatabaseConnection dbConnection = DatabaseConnection.getInstance();
+
+try (Connection conn = dbConnection.getConnection()) {
+    // Query to check if the data already exists in the exams table
+    String checkSQL = "SELECT COUNT(*) AS count FROM exams WHERE coursecode = ? AND coursename = ? AND examnumber = ?";
+    
+    // Query to fetch student_name and studentID
+    String selectSQL = "SELECT student_name, studentID FROM student_to_course WHERE coursecode = ?";
+    
+    // Query to insert into the exams table
+    String insertSQL = "INSERT INTO exams (coursecode, coursename, studentid, fullname, examnumber, examresult, examtotal, status) " +
+                       "VALUES (?, ?, ?, ?, ?, '', '', '')";
+
+    // Check if the data already exists
+    try (PreparedStatement checkStmt = conn.prepareStatement(checkSQL)) {
+        checkStmt.setString(1, coursecode);
+        checkStmt.setString(2, coursename);
+        checkStmt.setString(3, examNameValue);
+
+        try (ResultSet rsCheck = checkStmt.executeQuery()) {
+            if (rsCheck.next() && rsCheck.getInt("count") > 0) {
+                JOptionPane.showMessageDialog(this,
+                    "An exam with the same course code, course name, and exam name already exists.",
+                    "Duplicate Entry",
+                    JOptionPane.WARNING_MESSAGE);
+                return; // Exit the method if a duplicate is found
+            }
+        }
+    }
+
+    // Proceed to fetch students and add new records
+    try (PreparedStatement selectStmt = conn.prepareStatement(selectSQL)) {
+        selectStmt.setString(1, coursecode);
+
+        try (ResultSet rs = selectStmt.executeQuery()) {
+            // Check if data exists
+            if (!rs.isBeforeFirst()) {
+                JOptionPane.showMessageDialog(this,
+                    "No students found for course code: " + coursecode,
+                    "No Data",
+                    JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Prepare the INSERT statement
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+                while (rs.next()) {
+                    String studentName = rs.getString("student_name");
+                    String studentID = rs.getString("studentID");
+
+                    // Set parameters for INSERT
+                    insertStmt.setString(1, coursecode);
+                    insertStmt.setString(2, coursename);
+                    insertStmt.setString(3, studentID);
+                    insertStmt.setString(4, studentName);
+                    insertStmt.setString(5, examNameValue);
+
+                    // Execute the insert
+                    insertStmt.executeUpdate();
+                }
+            }
+        }
+    }
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this,
+        "Database error: " + e.getMessage(),
+        "Error",
+        JOptionPane.ERROR_MESSAGE);
+    e.printStackTrace();
+}
+addData();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void pictureBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox1MouseClicked
+        String coursecode = courseCode.getText().trim(); // Replace with your JLabel variable name
+String coursename = courseName.getText().trim();
+String examNameValue = examName.getText().trim(); // Replace with your JTextField variable name
+
+// Validate if the exam name is provided
+if (examNameValue.isEmpty()) {
+    JOptionPane.showMessageDialog(this,
+        "Please enter an exam name before proceeding.",
+        "Input Required",
+        JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
+// Database connection instance
+DatabaseConnection dbConnection = DatabaseConnection.getInstance();
+
+try (Connection conn = dbConnection.getConnection()) {
+    // Query to check if the data already exists in the exams table
+    String checkSQL = "SELECT COUNT(*) AS count FROM exams WHERE coursecode = ? AND coursename = ? AND examnumber = ?";
+    
+    // Query to fetch student_name and studentID
+    String selectSQL = "SELECT student_name, studentID FROM student_to_course WHERE coursecode = ?";
+    
+    // Query to insert into the exams table
+    String insertSQL = "INSERT INTO exams (coursecode, coursename, studentid, fullname, examnumber, examresult, examtotal, status) " +
+                       "VALUES (?, ?, ?, ?, ?, '', '', '')";
+
+    // Check if the data already exists
+    try (PreparedStatement checkStmt = conn.prepareStatement(checkSQL)) {
+        checkStmt.setString(1, coursecode);
+        checkStmt.setString(2, coursename);
+        checkStmt.setString(3, examNameValue);
+
+        try (ResultSet rsCheck = checkStmt.executeQuery()) {
+            if (rsCheck.next() && rsCheck.getInt("count") > 0) {
+                JOptionPane.showMessageDialog(this,
+                    "An exam with the same course code, course name, and exam name already exists.",
+                    "Duplicate Entry",
+                    JOptionPane.WARNING_MESSAGE);
+                return; // Exit the method if a duplicate is found
+            }
+        }
+    }
+
+    // Proceed to fetch students and add new records
+    try (PreparedStatement selectStmt = conn.prepareStatement(selectSQL)) {
+        selectStmt.setString(1, coursecode);
+
+        try (ResultSet rs = selectStmt.executeQuery()) {
+            // Check if data exists
+            if (!rs.isBeforeFirst()) {
+                JOptionPane.showMessageDialog(this,
+                    "No students found for course code: " + coursecode,
+                    "No Data",
+                    JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Prepare the INSERT statement
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+                while (rs.next()) {
+                    String studentName = rs.getString("student_name");
+                    String studentID = rs.getString("studentID");
+
+                    // Set parameters for INSERT
+                    insertStmt.setString(1, coursecode);
+                    insertStmt.setString(2, coursename);
+                    insertStmt.setString(3, studentID);
+                    insertStmt.setString(4, studentName);
+                    insertStmt.setString(5, examNameValue);
+
+                    // Execute the insert
+                    insertStmt.executeUpdate();
+                }
+            }
+        }
+    }
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this,
+        "Database error: " + e.getMessage(),
+        "Error",
+        JOptionPane.ERROR_MESSAGE);
+    e.printStackTrace();
+}
+addData();
+
+
+    }//GEN-LAST:event_pictureBox1MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         String coursecode = courseCode.getText().trim(); // Replace with your JLabel variable name
          String coursename = courseName.getText().trim();
@@ -377,13 +510,8 @@ public class AddExam extends javax.swing.JPanel {
 
             if (rowsDeleted > 0) {
                 JOptionPane.showMessageDialog(this, 
-                    "Successfully deleted " + rowsDeleted + " row(s) from the 'exams' table.", 
+                    "Successfully deleted.", 
                     "Deletion Successful", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "No matching data found to delete in the 'exams' table.", 
-                    "No Data", 
                     JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -395,7 +523,68 @@ public class AddExam extends javax.swing.JPanel {
         e.printStackTrace();
     }
     deleteData();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void pictureBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox2MouseClicked
+        // TODO add your handling code here:
+        String coursecode = courseCode.getText().trim(); // Replace with your JLabel variable name
+         String coursename = courseName.getText().trim();
+         String examNameValue = examName.getText().trim(); // Replace with your JTextField variable name
+
+    // Validate if course code is provided
+    if (coursecode.isEmpty()) {
+        JOptionPane.showMessageDialog(this, 
+            "Course code is missing. Please ensure it's provided.", 
+            "Input Required", 
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Confirm deletion action
+    int confirm = JOptionPane.showConfirmDialog(this, 
+        "Are you sure you want to delete all exams for course code: " + coursecode + 
+        (examNameValue.isEmpty() ? "?" : " and exam name: " + examNameValue + "?"), 
+        "Confirm Deletion", 
+        JOptionPane.YES_NO_OPTION);
+
+    if (confirm != JOptionPane.YES_OPTION) {
+        return; // Exit if user cancels
+    }
+
+    // Database connection instance
+    DatabaseConnection dbConnection = DatabaseConnection.getInstance();
+
+    try (Connection conn = dbConnection.getConnection()) {
+        // Delete query
+        String deleteSQL = "DELETE FROM exams WHERE coursecode = ?" + 
+                           (examNameValue.isEmpty() ? "" : " AND examnumber = ?");
+
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL)) {
+            // Set parameters for DELETE
+            deleteStmt.setString(1, coursecode);
+            if (!examNameValue.isEmpty()) {
+                deleteStmt.setString(2, examNameValue); // Include quiz name if provided
+            }
+
+            // Execute deletion
+            int rowsDeleted = deleteStmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(this, 
+                    "Successfully deleted.", 
+                    "Deletion Successful", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Database error: " + e.getMessage(), 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    deleteData();
+    }//GEN-LAST:event_pictureBox2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -405,14 +594,16 @@ public class AddExam extends javax.swing.JPanel {
     private javax.swing.JTextField examName;
     public static javax.swing.JTable examTable;
     private javax.swing.JLabel id;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private Swing.PictureBox pictureBox1;
+    private Swing.PictureBox pictureBox2;
     // End of variables declaration//GEN-END:variables
 }

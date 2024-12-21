@@ -7,6 +7,7 @@ package TeacherUI.TeacherPanels;
 import TeacherUI.TeacherBoxes.CourseBox;
 import Data.Models.ModelCourse;
 import Swing.EventItem;
+import com.formdev.flatlaf.FlatLightLaf;
 
 /**
  *
@@ -20,6 +21,7 @@ public class taecherDashboard extends javax.swing.JPanel {
     }
     public taecherDashboard() {
         initComponents();
+        FlatLightLaf.setup();
     }
     private EventItem event;
      public void addItem(ModelCourse data) {
@@ -57,8 +59,8 @@ public class taecherDashboard extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1319, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

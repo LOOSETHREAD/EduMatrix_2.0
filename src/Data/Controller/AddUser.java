@@ -126,7 +126,7 @@ public class AddUser {
               ResultSet rs = p.executeQuery();
             if (rs.next()) {
                 
-                return new ModelStudentUser(rs.getString("username"), rs.getString("password").toCharArray(), rs.getString("fullname"), rs.getString("studentid"));
+                return new ModelStudentUser(rs.getString("username"), rs.getString("password").toCharArray(), rs.getString("fullname"), rs.getString("studentid"), rs.getString("program"));
             } else {
                 
                 return null;

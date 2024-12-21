@@ -5,12 +5,14 @@
 package StudentUI;
 
 import static Data.Controller.PopulateTable.populateCourseTable;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -24,9 +26,23 @@ public class StudentSpr extends javax.swing.JPanel {
      */
     public StudentSpr(JLabel studentIDLabel) {
         initComponents();
+        
+        FlatLightLaf.setup();
         String studentID = studentIDLabel.getText(); // Get the student ID from the JLabel
         populateCourseTable(sprTable, studentID);
         customizeTable();
+        centerDataTable();
+    }
+    private void centerDataTable(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < sprTable.getColumnModel().getColumnCount(); i++) {
+            sprTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) sprTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
      private void customizeTable() {
         // Disable row and column selection

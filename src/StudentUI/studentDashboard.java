@@ -3,6 +3,7 @@ package StudentUI;
 
 import Data.Models.ModelCourse;
 import Swing.EventItem;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class studentDashboard extends javax.swing.JPanel {
     private EventItem event;
@@ -12,7 +13,7 @@ public class studentDashboard extends javax.swing.JPanel {
     }
     public studentDashboard() {
         initComponents();
-        
+        FlatLightLaf.setup();
     }
     public void addItem(ModelCourse data) {
     if (data == null) {
