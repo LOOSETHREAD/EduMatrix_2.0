@@ -23,6 +23,8 @@ import javax.swing.JTable;
 import TeacherUI.TeacherMain.Teacher;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -40,10 +42,22 @@ public class TeacherAddCourse extends javax.swing.JPanel {
         courseCode.setVisible(false);
         datacontroller = new AddData(courseTableModel);
         populateCourseTable(courseTable);
+        centerDataTable();
     }
     public JTable getCourseTable() {
     return courseTable; // Return the JTable instance
 }
+    private void centerDataTable(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i <courseTable.getColumnModel().getColumnCount(); i++) {
+            courseTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) courseTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    }
    public void addBtn() {
     // Validate that the course name field is not empty
     if (courseName.getText().trim().isEmpty()) {

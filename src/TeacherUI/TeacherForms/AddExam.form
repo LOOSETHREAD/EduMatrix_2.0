@@ -260,12 +260,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select a course to add exam : "/>
+        <Property name="text" type="java.lang.String" value="Select a Course to add exam : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="List of course that have exam :"/>
+        <Property name="text" type="java.lang.String" value="List of Courses that have exam :"/>
       </Properties>
     </Component>
     <Container class="Swing.PictureBox" name="pictureBox1">

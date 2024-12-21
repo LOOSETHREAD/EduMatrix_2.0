@@ -9,6 +9,8 @@ import static Data.Controller.PopulateTable.PopulateStudentInfoToExamTable;
 import Data.Models.ModelExam;
 import static TeacherUI.TeacherForms.QuizInfo.quizTable;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,6 +31,7 @@ public class ExamInfo extends javax.swing.JPanel {
         studentId.setVisible(false);
         id.setVisible(false);
         datacontroller = new AddData(examDataTableModel);
+        centerDataTable1();
     }
     public void TextFieldEmpty(){
         courseCode.setText("");
@@ -54,6 +57,17 @@ public class ExamInfo extends javax.swing.JPanel {
     PopulateStudentInfoToExamTable(ExamInfo.examTable,examName, courseCodeToUpdate);
     TextFieldEmpty();
 }
+        private void centerDataTable1(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < examTable.getColumnModel().getColumnCount(); i++) {
+            examTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) examTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    }
     private boolean validateFields() {
     if (examResult.getText().trim().isEmpty() || examTotal.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please enter values for both Exam Result and Exam Total.", 

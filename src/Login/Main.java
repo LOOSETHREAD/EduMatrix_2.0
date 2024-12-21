@@ -7,6 +7,7 @@ package Login;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +27,25 @@ public class Main extends javax.swing.JFrame {
         StudentLogin studentLogin = new StudentLogin();
         FacultyRegister facultyRegister = new FacultyRegister();
         StudentRegister studentRegister = new StudentRegister();
+        
+        front.addEventExitSystem(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            // Display exit confirmation dialog
+            int response = JOptionPane.showConfirmDialog(
+                Main.this, // Use the parent frame as the component
+                "Are you sure you want to exit the system?",
+                "Exit Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+            );
 
+            // Check user response
+            if (response == JOptionPane.YES_OPTION) {
+                System.exit(0); // Completely close the application
+            }
+        }
+    });
         // Set animation speed
         slide.setAnimate(5);
 
@@ -36,6 +55,7 @@ public class Main extends javax.swing.JFrame {
         // Action listeners to handle transitions based on button clicks
 
         // Actions on FrontPage (com1)
+        
         front.addEventTeacherLogin(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -159,27 +179,26 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Copyright All rights reserve 2024");
 
-        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/Icons/edumatrixlogo.png"))); // NOI18N
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/Icons/edumatrixlogoers.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(96, 96, 96)
+                .addComponent(jLabel1)
+                .addContainerGap(101, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())

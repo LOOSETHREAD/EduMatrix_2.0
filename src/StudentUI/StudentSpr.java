@@ -30,7 +30,7 @@ public class StudentSpr extends javax.swing.JPanel {
         FlatLightLaf.setup();
         String studentID = studentIDLabel.getText(); // Get the student ID from the JLabel
         populateCourseTable(sprTable, studentID);
-        customizeTable();
+//        customizeTable();
         centerDataTable();
     }
     private void centerDataTable(){

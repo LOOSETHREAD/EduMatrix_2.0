@@ -8,6 +8,8 @@ import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.populateStudentToCourseTable;
 import Data.Models.ModelStudentToCourse;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,6 +31,7 @@ public class CourseInfo extends javax.swing.JPanel {
         courseCode.setVisible(false);
         idcourselist.setVisible(false);
         datacontroller = new AddData(studentDataTableModel);
+        centerDataTable1();
     }
     public void updateBtn() {
     int idData = Integer.parseInt(idcourselist.getText());
@@ -41,6 +44,17 @@ public class CourseInfo extends javax.swing.JPanel {
     populateStudentToCourseTable(studentDataTable, courseCodeToUpdate);
     TextFieldEmpty();
 }
+    private void centerDataTable1(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < studentDataTable.getColumnModel().getColumnCount(); i++) {
+            studentDataTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) studentDataTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    }
     public void TextFieldEmpty(){
         courseCode.setText("");
         courseName.setText("");

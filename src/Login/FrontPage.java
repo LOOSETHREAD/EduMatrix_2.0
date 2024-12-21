@@ -5,6 +5,7 @@
 package Login;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +29,9 @@ public class FrontPage extends javax.swing.JPanel {
      public void addEventStudentLogin(ActionListener event) {
         cmdStudent.addActionListener(event);
     }
-
+    public void addEventExitSystem(ActionListener event){
+        cmdBackFront.addActionListener(event);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +50,8 @@ public class FrontPage extends javax.swing.JPanel {
         cmdStudent = new javax.swing.JButton();
         panelBorder2 = new Swing.PanelBorder();
         cmdTeacherLogin = new javax.swing.JButton();
+        pictureBox2 = new Swing.PictureBox();
+        cmdBackFront = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(41, 78, 89));
         jPanel1.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -90,33 +95,55 @@ public class FrontPage extends javax.swing.JPanel {
         cmdTeacherLogin.setContentAreaFilled(false);
         panelBorder2.add(cmdTeacherLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 252, 64));
 
+        pictureBox2.setImage(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-exit-48.png"))); // NOI18N
+        pictureBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox2MouseClicked(evt);
+            }
+        });
+
+        cmdBackFront.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmdBackFront.setForeground(new java.awt.Color(255, 255, 255));
+        cmdBackFront.setBorderPainted(false);
+        cmdBackFront.setContentAreaFilled(false);
+        cmdBackFront.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBackFrontActionPerformed(evt);
+            }
+        });
+        pictureBox2.add(cmdBackFront);
+        cmdBackFront.setBounds(0, 0, 30, 30);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1)
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4)
+                    .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(74, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addComponent(pictureBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pictureBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -142,8 +169,17 @@ public class FrontPage extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1InputMethodTextChanged
 
+    private void pictureBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pictureBox2MouseClicked
+
+    private void cmdBackFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBackFrontActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdBackFrontActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdBackFront;
     private javax.swing.JButton cmdStudent;
     private javax.swing.JButton cmdTeacherLogin;
     private javax.swing.JLabel jLabel1;
@@ -152,5 +188,6 @@ public class FrontPage extends javax.swing.JPanel {
     private Swing.PanelBorder panelBorder1;
     private Swing.PanelBorder panelBorder2;
     private Swing.PictureBox pictureBox1;
+    private Swing.PictureBox pictureBox2;
     // End of variables declaration//GEN-END:variables
 }

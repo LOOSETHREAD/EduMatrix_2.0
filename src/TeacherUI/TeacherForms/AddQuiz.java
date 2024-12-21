@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -33,6 +35,8 @@ public class AddQuiz extends javax.swing.JPanel {
         courseTableModel = (DefaultTableModel) courseTable.getModel();
         PopulateTable.populateQuizToAddQuizTable(quizTable);
         PopulateTable.populateCourseTable(courseTable);
+        centerDataTable1();
+        centerDataTable2();
     }
     public JLabel getCourseCodeLabel() {
     return courseCode;
@@ -45,6 +49,28 @@ public class AddQuiz extends javax.swing.JPanel {
         courseName.setText("");
         quizName.setText("");
         id.setText("");
+    }
+    private void centerDataTable1(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < courseTable.getColumnModel().getColumnCount(); i++) {
+            courseTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) courseTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    private void centerDataTable2(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < quizTable.getColumnModel().getColumnCount(); i++) {
+            quizTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) quizTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
     public void addData(){
         ModelQuiz newdata = new ModelQuiz(courseCode.getText(), courseName.getText(),quizName.getText());

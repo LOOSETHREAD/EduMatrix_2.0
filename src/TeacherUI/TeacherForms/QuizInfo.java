@@ -8,6 +8,8 @@ import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.PopulateStudentInfoToQuizTable;
 import Data.Models.ModelQuiz;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +30,18 @@ public class QuizInfo extends javax.swing.JPanel {
         studentId.setVisible(false);
         id.setVisible(false);
         datacontroller = new AddData(quizDataTableModel);
+        centerDataTable1();
+    }
+    private void centerDataTable1(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < quizTable.getColumnModel().getColumnCount(); i++) {
+            quizTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) quizTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
     public void updateBtn() {
     int idData = Integer.parseInt(id.getText());

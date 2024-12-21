@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author User
@@ -30,7 +32,19 @@ public class VerifyStudent extends javax.swing.JPanel {
         studentid.setVisible(false);
         studentReqTableModel = (DefaultTableModel) studentReqTable.getModel();
         PopulateTable.populateStudentRequestTable(studentReqTable);
+        centerDataTable();
         
+    }
+    private void centerDataTable(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i <studentReqTable.getColumnModel().getColumnCount(); i++) {
+            studentReqTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Center the header text
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) studentReqTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
     public void TextFieldEmpty(){
         fullName.setText("");
