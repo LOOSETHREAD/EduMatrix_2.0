@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package StudentUI;
-
 import static Data.Controller.PopulateTable.getUserInfo;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
@@ -11,22 +6,86 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class studentReq extends javax.swing.JPanel {
-
-    /**
-     * Creates new form adminRequest
-     */
     public studentReq(String StudentID) {
         initComponents();
         fullname2.setVisible(false);
         studentid.setVisible(false);
         courseName.setVisible(false);
     }
-
     public static void updateStudentID(String studentID, String fullnameData) {
     studentid.setText(studentID);
         fullname2.setText(fullnameData);
         getUserInfo(fullnameData);
 }
+    private void EnterCourse(){
+        String fullname = fullname2.getText().trim();
+String studentID = studentid.getText().trim();
+String courseCodeValue = courseCode.getText().trim();
+if (fullname.isEmpty() || studentID.isEmpty() || courseCodeValue.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "All fields are required!", "Input Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+String validationQuery = "SELECT coursename FROM courselist WHERE coursecode = ?";
+String enrollmentCheckQuery = "SELECT COUNT(*) FROM student_to_course WHERE studentID = ? AND coursecode = ?";
+String duplicateCheckQuery = "SELECT COUNT(*) FROM studentrequestcourse WHERE studentid = ? AND coursecode = ?";
+String insertQuery = "INSERT INTO studentrequestcourse (fullname, studentid, coursecode, coursename, status) VALUES (?, ?, ?, ?, 'not verified')";
+try {
+    Connection conn = Data.Database.DatabaseConnection.getInstance().getConnection();
+
+    if (conn == null) {
+        JOptionPane.showMessageDialog(this, "Database connection failed!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    try (PreparedStatement validateStmt = conn.prepareStatement(validationQuery)) {
+        validateStmt.setString(1, courseCodeValue);
+        try (ResultSet rs = validateStmt.executeQuery()) {
+            if (rs.next()) {
+                String courseNameValue = rs.getString("coursename");
+                courseName.setText(courseNameValue);
+                try (PreparedStatement enrollmentCheckStmt = conn.prepareStatement(enrollmentCheckQuery)) {
+                    enrollmentCheckStmt.setString(1, studentID);
+                    enrollmentCheckStmt.setString(2, courseCodeValue);
+                    try (ResultSet enrollmentResultSet = enrollmentCheckStmt.executeQuery()) {
+                        if (enrollmentResultSet.next() && enrollmentResultSet.getInt(1) > 0) {
+                            JOptionPane.showMessageDialog(this, "You are already enrolled in this course!", "Enrollment Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+                }
+                try (PreparedStatement duplicateCheckStmt = conn.prepareStatement(duplicateCheckQuery)) {
+                    duplicateCheckStmt.setString(1, studentID);
+                    duplicateCheckStmt.setString(2, courseCodeValue);
+                    try (ResultSet duplicateResultSet = duplicateCheckStmt.executeQuery()) {
+                        if (duplicateResultSet.next() && duplicateResultSet.getInt(1) > 0) {
+                            JOptionPane.showMessageDialog(this, "This course has already been requested.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+                }
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                    insertStmt.setString(1, fullname);
+                    insertStmt.setString(2, studentID);
+                    insertStmt.setString(3, courseCodeValue);
+                    insertStmt.setString(4, courseNameValue);
+                    int rowsInserted = insertStmt.executeUpdate();
+                    if (rowsInserted > 0) {
+                        JOptionPane.showMessageDialog(this, "Request submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        courseCode.setText("");
+                        courseName.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to submit the request. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid course code. Please check and try again.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    e.printStackTrace();
+}
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,6 +107,11 @@ public class studentReq extends javax.swing.JPanel {
         courseCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 courseCodeActionPerformed(evt);
+            }
+        });
+        courseCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                courseCodeKeyPressed(evt);
             }
         });
 
@@ -126,112 +190,17 @@ public class studentReq extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enterCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterCourseActionPerformed
-       String fullname = fullname2.getText().trim();
-String studentID = studentid.getText().trim();
-String courseCodeValue = courseCode.getText().trim();
-
-// Validate input fields
-if (fullname.isEmpty() || studentID.isEmpty() || courseCodeValue.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "All fields are required!", "Input Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-// Query to validate courseCode and retrieve courseName from the courselist table
-String validationQuery = "SELECT coursename FROM courselist WHERE coursecode = ?";
-
-// Query to check if the user is already enrolled in the course
-String enrollmentCheckQuery = "SELECT COUNT(*) FROM student_to_course WHERE studentID = ? AND coursecode = ?";
-
-// Query to check for duplicate entries
-String duplicateCheckQuery = "SELECT COUNT(*) FROM studentrequestcourse WHERE studentid = ? AND coursecode = ?";
-
-// Query to insert data into the studentrequestcourse table
-String insertQuery = "INSERT INTO studentrequestcourse (fullname, studentid, coursecode, coursename, status) VALUES (?, ?, ?, ?, 'not verified')";
-
-try {
-    // Get a database connection
-    Connection conn = Data.Database.DatabaseConnection.getInstance().getConnection();
-
-    if (conn == null) {
-        JOptionPane.showMessageDialog(this, "Database connection failed!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Validate courseCode and retrieve courseName
-    try (PreparedStatement validateStmt = conn.prepareStatement(validationQuery)) {
-        validateStmt.setString(1, courseCodeValue);
-
-        try (ResultSet rs = validateStmt.executeQuery()) {
-            if (rs.next()) {
-                // Retrieve the courseName from the database
-                String courseNameValue = rs.getString("coursename");
-                courseName.setText(courseNameValue); // Display the courseName in the JLabel
-
-                // Check if the user is already enrolled in the course
-                try (PreparedStatement enrollmentCheckStmt = conn.prepareStatement(enrollmentCheckQuery)) {
-                    enrollmentCheckStmt.setString(1, studentID);
-                    enrollmentCheckStmt.setString(2, courseCodeValue);
-
-                    try (ResultSet enrollmentResultSet = enrollmentCheckStmt.executeQuery()) {
-                        if (enrollmentResultSet.next() && enrollmentResultSet.getInt(1) > 0) {
-                            // User is already enrolled in the course
-                            JOptionPane.showMessageDialog(this, "You are already enrolled in this course!", "Enrollment Error", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-                    }
-                }
-
-                // Check for duplicate entries
-                try (PreparedStatement duplicateCheckStmt = conn.prepareStatement(duplicateCheckQuery)) {
-                    duplicateCheckStmt.setString(1, studentID);
-                    duplicateCheckStmt.setString(2, courseCodeValue);
-
-                    try (ResultSet duplicateResultSet = duplicateCheckStmt.executeQuery()) {
-                        if (duplicateResultSet.next() && duplicateResultSet.getInt(1) > 0) {
-                            // Duplicate found
-                            JOptionPane.showMessageDialog(this, "This course has already been requested.", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-                    }
-                }
-
-                // Insert data into the studentrequestcourse table
-                try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
-                    insertStmt.setString(1, fullname);
-                    insertStmt.setString(2, studentID);
-                    insertStmt.setString(3, courseCodeValue);
-                    insertStmt.setString(4, courseNameValue);
-
-                    int rowsInserted = insertStmt.executeUpdate();
-
-                    if (rowsInserted > 0) {
-                        JOptionPane.showMessageDialog(this, "Request submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        // Clear input fields
-                        courseCode.setText("");
-                        courseName.setText("");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Failed to submit the request. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            } else {
-                // Invalid courseCode
-                JOptionPane.showMessageDialog(this, "Invalid course code. Please check and try again.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-} catch (SQLException e) {
-    JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    e.printStackTrace();
-}
-
-
-
+        EnterCourse();
     }//GEN-LAST:event_enterCourseActionPerformed
-
     private void courseCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseCodeActionPerformed
-        // TODO add your handling code here:
+  
     }//GEN-LAST:event_courseCodeActionPerformed
 
+    private void courseCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_courseCodeKeyPressed
+       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+           EnterCourse();
+        }
+    }//GEN-LAST:event_courseCodeKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField courseCode;

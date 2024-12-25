@@ -1,7 +1,4 @@
 package TeacherUI.TeacherMain;
-
-//import static Data.Controller.PopulateTable.populateCourseToCourseBox;
-//import Data.Models.ModelCourse;
 import TeacherUI.TeacherForms.VerifyStudent;
 import TeacherUI.TeacherForms.TeacherAddCourse;
 import TeacherUI.TeacherForms.AddQuiz;
@@ -18,11 +15,8 @@ import Login.Main;
 import Swing.EventItem;
 import TeacherUI.TeacherForms.AddExam;
 import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.Toolkit;
 import java.util.List;
-
 public class Teacher extends javax.swing.JFrame {
-
     private static taecherDashboard dashh;
     private TeacherAddCourse addcourse;
     private VerifyStudent verify;
@@ -30,15 +24,11 @@ public class Teacher extends javax.swing.JFrame {
     private static TeacherExamDashboard examdash;
     private AddQuiz quiz;
     private AddExam exam;
-//    private TeacherAddAnnouncement addannounce;
-
     public Teacher() {
         initComponents();
         teacherId.setVisible(false);
-//        setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setBackground(Color.white);
         DASHBOARD.setLayout(new BorderLayout());
-//        addannounce = new TeacherAddAnnouncement();
         addcourse = new TeacherAddCourse();
         quizdash = new TeacherQuizDashboard();
         examdash = new TeacherExamDashboard();
@@ -53,32 +43,24 @@ public class Teacher extends javax.swing.JFrame {
         test2();
         test3();
     }
-
     public void forms(Component con) {
         DASHBOARD.removeAll();
         DASHBOARD.add(con);
-        // Revalidate and repaint after adding a new component to the DASHBOARD
         DASHBOARD.revalidate();
         DASHBOARD.repaint();
     }
-
     public static void test() {
             dashh.setEvent(new EventItem() {
         @Override
         public void itemClick(Component com, ModelCourse data) {
-        System.out.println("Clicked course: " + data.getCourseName());
         }
     });
         List<ModelCourse> courses = populateCourseToCourseBox();
 
         dashh.panelItem1.removeAll();
-
-        // Add the courses to the dashboard
         for (ModelCourse course : courses) {
             dashh.addItem(course);
         }
-
-        // Refresh the dashboard UI to display the new courses
         dashh.repaint();
         dashh.revalidate();
     }
@@ -86,19 +68,13 @@ public class Teacher extends javax.swing.JFrame {
             quizdash.setEvent(new EventItem() {
         @Override
         public void itemClick(Component com, ModelCourse data) {
-        System.out.println("Clicked course: " + data.getCourseName());
         }
     });
         List<ModelCourse> courses = populateCourseToCourseBox();
-
         quizdash.panelItem1.removeAll();
-
-        // Add the courses to the dashboard
         for (ModelCourse course : courses) {
             quizdash.addItem(course);
         }
-
-        // Refresh the dashboard UI to display the new courses
         quizdash.repaint();
         quizdash.revalidate();
     }
@@ -106,19 +82,14 @@ public class Teacher extends javax.swing.JFrame {
             examdash.setEvent(new EventItem() {
         @Override
         public void itemClick(Component com, ModelCourse data) {
-        System.out.println("Clicked course: " + data.getCourseName());
         }
     });
         List<ModelCourse> courses = populateCourseToCourseBox();
 
         examdash.panelItem1.removeAll();
-
-        // Add the courses to the dashboard
         for (ModelCourse course : courses) {
             examdash.addItem(course);
         }
-
-        // Refresh the dashboard UI to display the new courses
         examdash.repaint();
         examdash.revalidate();
     }
@@ -619,40 +590,6 @@ public class Teacher extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Teacher.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Teacher().setVisible(true);

@@ -41,22 +41,24 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="examName" alignment="1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="pictureBox1" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      <Component id="pictureBox2" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel7" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="pictureBox1" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          <Component id="pictureBox2" min="-2" pref="36" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel7" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="courseName" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                      <Component id="courseCode" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="75" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="id" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="courseName" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
-                  <Component id="courseCode" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="93" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" pref="75" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="90" max="-2" attributes="0"/>
-                  <Component id="id" min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -89,15 +91,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="examName" pref="82" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel7" pref="28" max="32767" attributes="0"/>
-                          <Component id="jLabel6" max="32767" attributes="0"/>
-                          <Component id="pictureBox1" pref="28" max="32767" attributes="0"/>
-                          <Component id="pictureBox2" pref="28" max="32767" attributes="0"/>
+                      <Component id="examName" min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel6" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="pictureBox1" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="pictureBox2" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="id" min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
@@ -245,6 +247,9 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="examNameKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="id">
     </Component>

@@ -1,6 +1,4 @@
-
 package Data.Controller;
-
 import Data.Models.ModelFacultyUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +8,6 @@ import Data.Models.ModelFacultyUser.UserRole;
 import Data.Models.ModelStudentUser;
 import java.util.Random;
 import java.sql.Connection;
-
 public class UserController {
     AddUser DAO;
     private Connection connection;
@@ -55,62 +52,29 @@ public class UserController {
         }
         
     }
-//    public boolean signInUser(ModelStudentUser data) throws ClassNotFoundException {
-//    try {
-//        // Step 1: Verify if the user exists with the given username and password
-//        String query = "SELECT * FROM students WHERE username = ? AND password = ?";
-//        PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-//        p.setString(1, data.getUsername());
-//        p.setString(2, String.valueOf(data.getPassword())); // Convert char[] to String
-//        ResultSet rs = p.executeQuery();
-//        
-//        if (rs.next()) {
-//            // Step 2: Update status to 'unregistered' if user exists
-//            String updateQuery = "UPDATE students SET status = 'unregistered' WHERE username = ?";
-//            PreparedStatement updateStmt = DatabaseConnection.getInstance().getConnection().prepareStatement(updateQuery);
-//            updateStmt.setString(1, data.getUsername());
-//            updateStmt.executeUpdate();
-//            return true; // User successfully signed in and status updated
-//        } else {
-//            return false; // Invalid login
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//        return false; // Handle SQL exceptions gracefully
-//    }
-//
-//}
     public boolean isAdminExists() throws ClassNotFoundException {
     try {
         // Step 1: Query to check if any user with status 'ADMIN' exists
         String query = "SELECT COUNT(*) FROM facultyuser WHERE role = 'ADMIN'";
         PreparedStatement p = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-
         ResultSet rs = p.executeQuery();
-
-        // Step 2: Check the result of the query
         if (rs.next()) {
-            return rs.getInt(1) > 0; // Returns true if the count is greater than 0
+            return rs.getInt(1) > 0;
         }
-        return false; // No 'ADMIN' found
+        return false;
     } catch (SQLException e) {
         e.printStackTrace();
-        return false; // Handle SQL exceptions gracefully
+        return false;
     }
 }
  public String generateStudentId() {
         Random random = new Random();
         String studentId;
         boolean isUnique;
-
         do {
-            // Generate a random 6-digit number
             studentId = String.format("%06d", random.nextInt(1000000));
-
-            // Check if it already exists in the database
             isUnique = checkStudentIdUniqueness(studentId);
         } while (!isUnique);
-
         return studentId;
     }
  private boolean checkStudentIdUniqueness(String studentId) {
@@ -119,27 +83,22 @@ public class UserController {
             ps.setString(1, studentId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) == 0; // Returns true if no matching record is found
+                    return rs.getInt(1) == 0;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false; // Assume not unique if an error occurs
+        return false;
     }
  public String generateTeacherId() {
         Random random = new Random();
         String teacherId;
         boolean isUnique;
-
         do {
-            // Generate a random 6-digit number
             teacherId = String.format("%06d", random.nextInt(100000));
-
-            // Check if it already exists in the database
             isUnique = checkTeacherIdUniqueness(teacherId);
         } while (!isUnique);
-
         return teacherId;
     }
  private boolean checkTeacherIdUniqueness(String teacherId) {
@@ -148,13 +107,13 @@ public class UserController {
             ps.setString(1, teacherId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) == 0; // Returns true if no matching record is found
+                    return rs.getInt(1) == 0;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false; // Assume not unique if an error occurs
+        return false;
     }
 }
 

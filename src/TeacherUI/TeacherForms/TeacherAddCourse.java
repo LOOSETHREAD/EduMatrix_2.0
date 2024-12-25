@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package TeacherUI.TeacherForms;
-
 import Data.Controller.AddData;
 import Data.Controller.PopulateTable;
 import static Data.Controller.PopulateTable.populateCourseTable;
@@ -12,9 +7,6 @@ import Data.Models.ModelCourse;
 import Data.Models.ModelExam;
 import Data.Models.ModelQuiz;
 import Data.Models.ModelStudentToCourse;
-import static TeacherUI.TeacherForms.AddQuiz.courseTable;
-import static TeacherUI.TeacherForms.ExamInfo.examTable;
-import static TeacherUI.TeacherForms.QuizInfo.quizTable;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -25,16 +17,9 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-
-/**
- *
- * @author User
- */
 public class TeacherAddCourse extends javax.swing.JPanel {
-    
        private AddData datacontroller;
     private DefaultTableModel courseTableModel;
-    
     public TeacherAddCourse() {
         FlatLightLaf.setup();
         initComponents();
@@ -45,7 +30,7 @@ public class TeacherAddCourse extends javax.swing.JPanel {
         centerDataTable();
     }
     public JTable getCourseTable() {
-    return courseTable; // Return the JTable instance
+    return courseTable;
 }
     private void centerDataTable(){
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -53,139 +38,82 @@ public class TeacherAddCourse extends javax.swing.JPanel {
         for (int i = 0; i <courseTable.getColumnModel().getColumnCount(); i++) {
             courseTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
-        // Center the header text
         DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) courseTable.getTableHeader().getDefaultRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
    public void addBtn() {
-    // Validate that the course name field is not empty
     if (courseName.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Course name cannot be empty. Please enter a course name.", "Validation Error", JOptionPane.WARNING_MESSAGE);
-        return; // Exit the method if validation fails
+        return;
     }
-
-    // Generate a course code
     GenerateCode();
-
-    // Create a new course object
     ModelCourse newdata = new ModelCourse(courseCode.getText(), courseName.getText().trim());
-
-    // Add course to the database
     datacontroller.addCourseToDatabase(newdata);
-
-    // Update the course table in the UI
     populateCourseTable(courseTable);
     PopulateTable.populateCourseTable(AddQuiz.courseTable);
     PopulateTable.populateCourseTable(AddExam.courseTable);
-
-    // Clear text fields and perform additional actions
     TextFieldEmpty();
     Teacher.test();
     Teacher.test2();
 }
-
-
     public void deleteBtn() {
-    String courseCodeToDelete = courseCode.getText().trim(); // Trim input to avoid accidental spaces
-
-    // Validate that the course code field is not empty
+    String courseCodeToDelete = courseCode.getText().trim();
     if (courseCodeToDelete.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Please select a course to delete.", "Validation Error", JOptionPane.WARNING_MESSAGE);
-        return; // Exit the method if validation fails
+        return;
     }
-
-    // Create necessary model objects for deletion
     ModelCourse newdata = new ModelCourse(courseCodeToDelete, courseName.getText().trim());
     ModelStudentToCourse data = new ModelStudentToCourse(courseCodeToDelete, courseName.getText().trim());
     ModelQuiz quiz = new ModelQuiz(courseCodeToDelete, courseName.getText().trim());
     ModelExam exam = new ModelExam(courseCodeToDelete, courseName.getText().trim());
-
-    // Perform deletion operations
     datacontroller.deleteCourseToDatabase(newdata);
     datacontroller.deleteCourseToStudentCourse(data);
     datacontroller.deleteQuizCourseToQuizList(quiz);
     datacontroller.deleteExamCourseToExamList(exam);
     datacontroller.deleteQuizCourseToStudentCourse(data);
     datacontroller.deleteExamCourseToStudentCourse(data);
-
-    // Update the relevant tables
     populateCourseTable(courseTable);
     PopulateTable.populateQuizToAddQuizTable(AddQuiz.quizTable);
     PopulateTable.populateCourseTable(AddQuiz.courseTable);
     PopulateTable.populateExamToAddExamTable(AddExam.examTable);
     PopulateTable.populateCourseTable(AddExam.courseTable);
-
-    // Clear text fields and perform additional actions
     TextFieldEmpty();
     Teacher.test();
     Teacher.test2();
 }
-
-
-//   public void updateBtn() {
-//    int idData = Integer.parseInt(idcourselist.getText());
-//    
-//    String courseCodeToUpdate = courseCode.getText();
-//    ModelCourse updatedData = new ModelCourse(courseCodeToUpdate, courseName.getText());
-//    ModelStudentToCourse data = new ModelStudentToCourse(courseCodeToUpdate, courseName.getText());
-//    // Update the course in the database
-//    datacontroller.updateCourseToDatabase(updatedData, idData);
-//    datacontroller.updateCourseToStudentCourse(data, idData);
-//    // Update the table
-//    populateCourseTable(courseTable);
-//    TextFieldEmpty();
-//}
-
     public void TextFieldEmpty(){
         courseCode.setText("");
         courseName.setText("");
     }
-    
-    
     public void GenerateCode() {
     String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     StringBuilder code;
     java.util.Random random = new java.util.Random();
     boolean isUnique;
-
     do {
         code = new StringBuilder();
-
-        // Generate a 7-character code
         for (int i = 0; i < 7; i++) {
             int index = random.nextInt(chars.length());
             code.append(chars.charAt(index));
         }
-
-        // Check if the code is unique in the database
         isUnique = checkCodeUniqueness(code.toString());
-    } while (!isUnique); // Repeat if the code exists
-
-    // Set the generated code to the JLabel courseCode
+    } while (!isUnique);
     courseCode.setText(code.toString());
 }
-
 private boolean checkCodeUniqueness(String code) {
     String sql = "SELECT COUNT(*) FROM courselist WHERE coursecode = ?";
     try (PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
         ps.setString(1, code);
         try (ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
-                return rs.getInt(1) == 0; // Returns true if no matching record is found
+                return rs.getInt(1) == 0;
             }
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return false; // Assume not unique if an error occurs
+    return false;
 }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -277,29 +205,32 @@ private boolean checkCodeUniqueness(String code) {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
-                    .addComponent(courseName)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(courseCode)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(176, 176, 176)
-                                .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
-                                .addComponent(pictureBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(idcourselist)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                            .addComponent(courseName)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(courseCode)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 523, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(pictureBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,17 +241,21 @@ private boolean checkCodeUniqueness(String code) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(pictureBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24)
-                .addComponent(idcourselist)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(courseCode))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(idcourselist)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(courseCode))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pictureBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pictureBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))))
         );
     }// </editor-fold>//GEN-END:initComponents
 

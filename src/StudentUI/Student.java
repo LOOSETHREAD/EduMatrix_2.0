@@ -1,6 +1,4 @@
-
 package StudentUI;
-
 import Data.Controller.PopulateTable;
 import Data.Models.ModelCourse;
 import Data.Models.ModelStudentUser;
@@ -9,47 +7,30 @@ import Swing.EventItem;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Toolkit;
 import Swing.GlassPanePopup;
-import TeacherUI.TeacherMain.Teacher;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
-
-/**
- *
- * @author Administrator
- */
- 
-
-
 public class Student extends javax.swing.JFrame {
-
      private studentReq Sreq;
      private studentDashboard Sdash;
      private StudentQuizDashboard SquizDash;
-     private StudentExamDashboard SexamDash;
+     private StudentExamDashboard StudExamDash;
      public static ModelStudentUser data;
      public static ModelCourse course;
      private StudentSpr spr;
     public Student(ModelStudentUser user) {
         initComponents();
-        
         FlatLightLaf.setup();
         Student.data = user;
         if (user != null) {
         programLabel.setText(user.getProgram());
         studentid.setText(user.getStudentid());
         fullName2.setText(user.getFullname());
-            System.out.println("Student program:" + user.getProgram());
-        System.out.println("Student ID set: " + user.getStudentid());
-    } else {
-        System.out.println("Error: ModelStudentUser is null");
     }
-//        setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setBackground( Color.white);
         DASHBOARD.setLayout(new BorderLayout());
         SquizDash = new StudentQuizDashboard();
-        SexamDash = new StudentExamDashboard();
+        StudExamDash = new StudentExamDashboard();
         spr = new StudentSpr(studentid);
         Sreq = new studentReq(studentid.getText());
          Sdash = new studentDashboard();
@@ -59,180 +40,114 @@ public class Student extends javax.swing.JFrame {
               test2();
               test3();
     }
-    
  public void forms(Component con){
      DASHBOARD.removeAll();
      DASHBOARD.add(con);
      repaint();
      revalidate();
  }
- 
 public void test() {
-    // Debugging to check the data state
     if (data == null) {
         System.out.println("Error: data object is null.");
         return;
     }
-
     if (data.getStudentid() == null || data.getStudentid().isEmpty()) {
         System.out.println("Error: Student ID is null or empty.");
         return;
     }
-
-    System.out.println("Testing with student ID: " + data.getStudentid());
-    
-    // Attach the event for item clicks
     Sdash.setEvent(new EventItem() {
         @Override
         public void itemClick(Component com, ModelCourse data) {
-            System.out.println("Event triggered. Component: " + com.getClass().getName());
-            System.out.println("Received data: " + (data != null ? data.getCourseName() : "null"));
             if (data == null) {
             System.out.println("Error: Clicked course data is null.");
-            return;
         }
-            System.out.println("Clicked course: " + data.getCourseName());
         }
     });
-
-    // Populate courses
     List<ModelCourse> courses = PopulateTable.populateCourseToCourseBoxStudent(data.getStudentid());
     if (courses == null || courses.isEmpty()) {
         System.out.println("No courses found for student ID: " + data.getStudentid());
         return;
     }
     for (ModelCourse course : courses) {
-        System.out.println("Populated course: " + course.getCourseName());
     if (course == null) {
         System.out.println("Warning: Null course found in the list.");
-        continue;
     }
-    System.out.println("Course: " + course.getCourseName());
 }
     Sdash.panelItem1.removeAll();
-
-    // Add courses to the dashboard
     for (ModelCourse course : courses) {
-        System.out.println("Adding course: " + course.getCourseName());
         Sdash.addItem(course);
     }
-    
-    // Refresh the dashboard UI
     Sdash.repaint();
     Sdash.revalidate();
-    
 }
 public void test2() {
-    // Debugging to check the data state
     if (data == null) {
         System.out.println("Error: data object is null.");
         return;
     }
-
     if (data.getStudentid() == null || data.getStudentid().isEmpty()) {
         System.out.println("Error: Student ID is null or empty.");
         return;
     }
-
-    System.out.println("Testing with student ID: " + data.getStudentid());
-    
-    // Attach the event for item clicks
     SquizDash.setEvent(new EventItem() {
         @Override
         public void itemClick(Component com, ModelCourse data) {
-            System.out.println("Event triggered. Component: " + com.getClass().getName());
-            System.out.println("Received data: " + (data != null ? data.getCourseName() : "null"));
             if (data == null) {
             System.out.println("Error: Clicked course data is null.");
-            return;
         }
-            System.out.println("Clicked course: " + data.getCourseName());
         }
     });
-
-    // Populate courses
     List<ModelCourse> courses = PopulateTable.populateCourseToCourseBoxStudent(data.getStudentid());
     if (courses == null || courses.isEmpty()) {
         System.out.println("No courses found for student ID: " + data.getStudentid());
         return;
     }
     for (ModelCourse course : courses) {
-        System.out.println("Populated course: " + course.getCourseName());
     if (course == null) {
         System.out.println("Warning: Null course found in the list.");
-        continue;
     }
-    System.out.println("Course: " + course.getCourseName());
 }
     SquizDash.panelItem1.removeAll();
-
-    // Add courses to the dashboard
     for (ModelCourse course : courses) {
-        System.out.println("Adding course: " + course.getCourseName());
         SquizDash.addItem(course);
     }
-    
-    // Refresh the dashboard UI
     SquizDash.repaint();
     SquizDash.revalidate();
-    
 }
 public void test3() {
-    // Debugging to check the data state
     if (data == null) {
         System.out.println("Error: data object is null.");
         return;
     }
-
     if (data.getStudentid() == null || data.getStudentid().isEmpty()) {
         System.out.println("Error: Student ID is null or empty.");
         return;
     }
-
-    System.out.println("Testing with student ID: " + data.getStudentid());
-    
-    // Attach the event for item clicks
-    SexamDash.setEvent(new EventItem() {
+    StudExamDash.setEvent(new EventItem() {
         @Override
         public void itemClick(Component com, ModelCourse data) {
-            System.out.println("Event triggered. Component: " + com.getClass().getName());
-            System.out.println("Received data: " + (data != null ? data.getCourseName() : "null"));
             if (data == null) {
             System.out.println("Error: Clicked course data is null.");
-            return;
         }
-            System.out.println("Clicked course: " + data.getCourseName());
         }
     });
-
-    // Populate courses
     List<ModelCourse> courses = PopulateTable.populateCourseToCourseBoxStudent(data.getStudentid());
     if (courses == null || courses.isEmpty()) {
         System.out.println("No courses found for student ID: " + data.getStudentid());
         return;
     }
     for (ModelCourse course : courses) {
-        System.out.println("Populated course: " + course.getCourseName());
     if (course == null) {
         System.out.println("Warning: Null course found in the list.");
-        continue;
     }
-    System.out.println("Course: " + course.getCourseName());
 }
-    SexamDash.panelItem1.removeAll();
-
-    // Add courses to the dashboard
+    StudExamDash.panelItem1.removeAll();
     for (ModelCourse course : courses) {
-        System.out.println("Adding course: " + course.getCourseName());
-        SexamDash.addItem(course);
+        StudExamDash.addItem(course);
     }
-    
-    // Refresh the dashboard UI
-    SexamDash.repaint();
-    SexamDash.revalidate();
-    
+    StudExamDash.repaint();
+    StudExamDash.revalidate();
 }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -547,41 +462,30 @@ public void test3() {
     }//GEN-LAST:event_BtndashActionPerformed
 
     private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
-        forms(SexamDash);
+        forms(StudExamDash);
     }//GEN-LAST:event_Btn2ActionPerformed
 
     private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
-         String currentStudentID = studentid.getText(); // Get the current teacher ID
+         String currentStudentID = studentid.getText();
          String currentFullname = fullName2.getText();
     studentReq.updateStudentID(currentStudentID,currentFullname);
         GlassPanePopup.showPopup(Sreq);
     }//GEN-LAST:event_Btn1ActionPerformed
 
     private void LogoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutBtnActionPerformed
-        // TODO add your handling code here:
         Main main = new Main();
         main.setVisible(true);
         dispose();
     }//GEN-LAST:event_LogoutBtnActionPerformed
 
     private void LogoutBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutBtn1ActionPerformed
-        // TODO add your handling code here:
         GlassPanePopup.showPopup(spr);
     }//GEN-LAST:event_LogoutBtn1ActionPerformed
 
     private void LogoutBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutBtn3ActionPerformed
-        // TODO add your handling code here:
-        forms(SquizDash);
+       forms(SquizDash);
     }//GEN-LAST:event_LogoutBtn3ActionPerformed
-
-
-   
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -598,139 +502,8 @@ public void test3() {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Student.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
                 ModelStudentUser user = new ModelStudentUser();
                 new Student(user).setVisible(true);
             }

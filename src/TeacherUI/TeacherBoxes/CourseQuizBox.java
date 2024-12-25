@@ -1,5 +1,4 @@
 package TeacherUI.TeacherBoxes;
-
 import Data.Models.ModelCourse;
 import Swing.EventItem;
 import java.awt.Color;
@@ -11,18 +10,12 @@ import javax.swing.JPanel;
 import Swing.GlassPanePopup;
 import TeacherUI.TeacherPanels.QuizPanel;
 import javax.swing.JOptionPane;
-
 public class CourseQuizBox extends JPanel {
-    
-
-
     public void setData(ModelCourse data) {
         this.data = data;
         courseCode.setText(data.getCourseCode());
         courseName.setText(data.getCourseName());
     }
-
-    
     private ModelCourse data;
     private String coursecode;
     private String coursename;
@@ -30,20 +23,16 @@ public class CourseQuizBox extends JPanel {
         initComponents();
         setOpaque(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
     }
-    
   @Override
     public void paint(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(new Color(242, 242, 242));
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-        
         g2.dispose();
         super.paint(grphcs);
     }
-    
     public void onClick2(EventItem event) {
     addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
@@ -58,8 +47,6 @@ public class CourseQuizBox extends JPanel {
         }
     });
 }
-  
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -103,8 +90,6 @@ public class CourseQuizBox extends JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel courseCode;
     public javax.swing.JLabel courseName;

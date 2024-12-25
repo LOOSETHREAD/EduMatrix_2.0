@@ -1,28 +1,20 @@
 package TeacherUI.TeacherBoxes;
-
 import static Data.Controller.PopulateTable.populateStudentToCourseTable;
 import Data.Models.ModelCourse;
-import Data.Models.ModelStudentToCourse;
-import StudentUI.StudentInfoBox;
 import Swing.EventItem;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import Swing.GlassPanePopup;
 import TeacherUI.TeacherForms.CourseInfo;
-
 public class CourseBox extends JPanel {
-    
 public void setSelected(boolean selected) {
         this.selected = selected;
         repaint();
     }
-
     public void setData(ModelCourse data) {
         this.data = data;
         courseCode.setText(data.getCourseCode());
@@ -35,14 +27,12 @@ public void setSelected(boolean selected) {
         setOpaque(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
-    
   @Override
     public void paint(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(new Color(242, 242, 242));
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-        
         g2.dispose();
         super.paint(grphcs);
     }
@@ -51,19 +41,14 @@ public void setSelected(boolean selected) {
         @Override
         public void mousePressed(java.awt.event.MouseEvent e) {
             if (event != null && data != null) {
-                // Show the popup with course info
                 CourseInfo courseInfoPopup = new CourseInfo();
                 GlassPanePopup.showPopup(courseInfoPopup);
-                // Populate the table for the specific courseCode
                 populateStudentToCourseTable(CourseInfo.studentDataTable, data.getCourseCode());
-
-                // Trigger the click event callback
                 event.itemClick(CourseBox.this, data);
             }
         }
     });
 }   
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
