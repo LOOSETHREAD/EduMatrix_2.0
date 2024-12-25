@@ -92,7 +92,7 @@ public class CourseInfo extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 78, 89), 2));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 78, 89), 5));
 
         studentDataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,7 +176,7 @@ public class CourseInfo extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(593, 593, 593)
                         .addComponent(courseName)
-                        .addGap(0, 6, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -217,7 +217,7 @@ public class CourseInfo extends javax.swing.JPanel {
                             .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addComponent(idcourselist)
                         .addGap(2, 2, 2)
                         .addComponent(courseName)))
@@ -226,7 +226,7 @@ public class CourseInfo extends javax.swing.JPanel {
                     .addComponent(fullName, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(courseCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentID, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE)
+                .addComponent(studentID, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
