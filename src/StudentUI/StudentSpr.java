@@ -15,6 +15,7 @@ public class StudentSpr extends javax.swing.JPanel {
         String studentID = studentIDLabel.getText();
         populateCourseTable(sprTable, studentID);
         centerDataTable();
+        customizeTable();
     }
     private void centerDataTable(){
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

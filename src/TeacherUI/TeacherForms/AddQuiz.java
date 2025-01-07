@@ -4,6 +4,7 @@ import Data.Controller.PopulateTable;
 import static Data.Controller.PopulateTable.populateQuizToAddQuizTable;
 import Data.Database.DatabaseConnection;
 import Data.Models.ModelQuiz;
+import java.awt.Cursor;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,11 @@ public class AddQuiz extends javax.swing.JPanel {
         courseTableModel = (DefaultTableModel) courseTable.getModel();
         PopulateTable.populateQuizToAddQuizTable(quizTable);
         PopulateTable.populateCourseTable(courseTable);
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        courseTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        quizTable.getTableHeader().setReorderingAllowed(false);
+        quizTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
         centerDataTable1();
         centerDataTable2();
     }

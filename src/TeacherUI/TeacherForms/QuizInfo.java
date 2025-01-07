@@ -2,6 +2,7 @@ package TeacherUI.TeacherForms;
 import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.PopulateStudentInfoToQuizTable;
 import Data.Models.ModelQuiz;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -19,6 +20,8 @@ public class QuizInfo extends javax.swing.JPanel {
         studentId.setVisible(false);
         id.setVisible(false);
         datacontroller = new AddData(quizDataTableModel);
+        quizTable.getTableHeader().setReorderingAllowed(false);
+        quizTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         centerDataTable1();
     }
     private void centerDataTable1(){

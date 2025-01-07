@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import javax.swing.JTable;
 import TeacherUI.TeacherMain.Teacher;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,6 +28,8 @@ public class TeacherAddCourse extends javax.swing.JPanel {
         courseCode.setVisible(false);
         datacontroller = new AddData(courseTableModel);
         populateCourseTable(courseTable);
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        courseTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         centerDataTable();
     }
     public JTable getCourseTable() {

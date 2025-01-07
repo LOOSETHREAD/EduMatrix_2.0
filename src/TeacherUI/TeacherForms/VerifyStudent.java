@@ -1,6 +1,7 @@
 package TeacherUI.TeacherForms;
 import Data.Controller.PopulateTable;
 import Data.Database.DatabaseConnection;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
@@ -21,6 +22,8 @@ public class VerifyStudent extends javax.swing.JPanel {
         studentid.setVisible(false);
         studentReqTableModel = (DefaultTableModel) studentReqTable.getModel();
         PopulateTable.populateStudentRequestTable(studentReqTable);
+        studentReqTable.getTableHeader().setReorderingAllowed(false);
+        studentReqTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         centerDataTable();
     }
     private void centerDataTable(){

@@ -4,6 +4,7 @@ import Data.Controller.PopulateTable;
 import static Data.Controller.PopulateTable.populateExamToAddExamTable;
 import Data.Database.DatabaseConnection;
 import Data.Models.ModelExam;
+import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +27,13 @@ public class AddExam extends javax.swing.JPanel {
         PopulateTable.populateCourseTable(courseTable);
         centerDataTable1();
         centerDataTable2();
+        customizeTable();
+    }
+    private void customizeTable() {
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        courseTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        examTable.getTableHeader().setReorderingAllowed(false);
+        examTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
     public JLabel getCourseCodeLabel() {
     return courseCode;

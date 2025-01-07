@@ -2,6 +2,7 @@ package TeacherUI.TeacherForms;
 import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.populateStudentToCourseTable;
 import Data.Models.ModelStudentToCourse;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,6 +21,8 @@ public class CourseInfo extends javax.swing.JPanel {
         courseCode.setVisible(false);
         idcourselist.setVisible(false);
         datacontroller = new AddData(studentDataTableModel);
+        studentDataTable.getTableHeader().setReorderingAllowed(false);
+        studentDataTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         centerDataTable1();
     }
     public void updateBtn() {

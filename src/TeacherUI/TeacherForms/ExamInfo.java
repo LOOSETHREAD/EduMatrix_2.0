@@ -2,6 +2,7 @@ package TeacherUI.TeacherForms;
 import Data.Controller.AddData;
 import static Data.Controller.PopulateTable.PopulateStudentInfoToExamTable;
 import Data.Models.ModelExam;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -19,6 +20,8 @@ public class ExamInfo extends javax.swing.JPanel {
         studentId.setVisible(false);
         id.setVisible(false);
         datacontroller = new AddData(examDataTableModel);
+        examTable.getTableHeader().setReorderingAllowed(false);
+        examTable.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         centerDataTable1();
     }
     public void TextFieldEmpty(){
@@ -133,7 +136,7 @@ public class ExamInfo extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
